@@ -1,0 +1,57 @@
+@Test(description = "Login with valid credentials")
+    public void testValidLogin() {
+        driver.get("https://www.saucedemo.com/v1");
+        WebElement username = driver.findElement(By.id("user-name"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginButton = driver.findElement(By.id("login-button"));
+
+        username.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+        loginButton.click();
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("inventory.html"), "Login failed!");
+    }
+
+    @Test(description = "Login with locked out user")
+    public void testLockedOutUser() {
+        driver.get("https://www.saucedemo.com/v1");
+        WebElement username = driver.findElement(By.id("user-name"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginButton = driver.findElement(By.id("login-button"));
+
+        username.sendKeys("locked_out_user");
+        password.sendKeys("secret_sauce");
+        loginButton.click();
+
+        WebElement errorMessage = driver.findElement(By.cssSelector("h3[data-test='error']"));
+        Assert.assertTrue(errorMessage.isDisplayed(), "Error message not displayed!");
+        Assert.assertEquals(errorMessage.getText(), "Epic sadface: Sorry, this user has been locked out.");
+    }
+
+    @Test(description = "Login with problem user")
+    public void testProblemUser() {
+        driver.get("https://www.saucedemo.com/v1");
+        WebElement username = driver.findElement(By.id("user-name"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginButton = driver.findElement(By.id("login-button"));
+
+        username.sendKeys("problem_user");
+        password.sendKeys("secret_sauce");
+        loginButton.click();
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("inventory.html"), "Login failed!");
+    }
+
+    @Test(description = "Login with performance glitch user")
+    public void testPerfGlitchUser() {
+        driver.get("https://www.saucedemo.com/v1");
+        WebElement username = driver.findElement(By.id("user-name"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginButton = driver.findElement(By.id("login-button"));
+
+        username.sendKeys("problem_user");
+        password.sendKeys("secret_sauce");
+        loginButton.click();
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("inventory.html"), "Login failed!");
+    }
