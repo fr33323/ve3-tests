@@ -5,11 +5,6 @@ pipeline {
         jdk 'JDK'
     }
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'file:///home/user/selenium-testng-project'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
